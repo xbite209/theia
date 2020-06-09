@@ -30,7 +30,7 @@ import { EditorWidget } from '@theia/editor/lib/browser';
 import { ScmProvider, ScmCommand, ScmResourceGroup, ScmAmendSupport, ScmCommit } from '@theia/scm/lib/browser/scm-provider';
 import { ScmHistoryCommit, ScmFileChange } from '@theia/scm-extra/lib/browser/scm-file-change-node';
 import { LabelProvider } from '@theia/core/lib/browser/label-provider';
-import { GitCommitDetailWidgetOptions } from './history/git-commit-detail-widget';
+import { GitCommitDetailWidgetOptions } from './history/git-commit-detail-widget-options';
 import { FileService } from '@theia/filesystem/lib/browser/file-service';
 
 @injectable()
@@ -195,6 +195,7 @@ export class GitScmProvider implements ScmProvider {
 
     getUriToOpen(change: GitFileChange): URI {
         const changeUri: URI = new URI(change.uri);
+        const fromFileUri = change.oldUri ? new URI(change.oldUri) : changeUri; // set oldUri on renamed and copied
         if (change.status === GitFileStatus.Deleted) {
             if (change.staged) {
                 return changeUri.withScheme(GIT_RESOURCE_SCHEME).withQuery('HEAD');
@@ -205,13 +206,13 @@ export class GitScmProvider implements ScmProvider {
         if (change.status !== GitFileStatus.New) {
             if (change.staged) {
                 return DiffUris.encode(
-                    changeUri.withScheme(GIT_RESOURCE_SCHEME).withQuery('HEAD'),
+                    fromFileUri.withScheme(GIT_RESOURCE_SCHEME).withQuery('HEAD'),
                     changeUri.withScheme(GIT_RESOURCE_SCHEME),
                     this.labelProvider.getName(changeUri) + ' (Index)');
             }
             if (this.stagedChanges.find(c => c.uri === change.uri)) {
                 return DiffUris.encode(
-                    changeUri.withScheme(GIT_RESOURCE_SCHEME),
+                    fromFileUri.withScheme(GIT_RESOURCE_SCHEME),
                     changeUri,
                     this.labelProvider.getName(changeUri) + ' (Working tree)');
             }
@@ -219,7 +220,7 @@ export class GitScmProvider implements ScmProvider {
                 return changeUri;
             }
             return DiffUris.encode(
-                changeUri.withScheme(GIT_RESOURCE_SCHEME).withQuery('HEAD'),
+                fromFileUri.withScheme(GIT_RESOURCE_SCHEME).withQuery('HEAD'),
                 changeUri,
                 this.labelProvider.getName(changeUri) + ' (Working tree)');
         }
@@ -433,6 +434,7 @@ export class GitScmProvider implements ScmProvider {
             },
             get commitDetailOptions(): GitCommitDetailWidgetOptions {
                 return {
+                    rootUri: this.scmProvider.rootUri,
                     commitSha: gitCommit.sha,
                     commitMessage: gitCommit.summary,
                     messageBody: gitCommit.body,
