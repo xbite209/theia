@@ -35,6 +35,10 @@
 <a name="1.5.0_non_blocking_bulk_edit"></a>
 - [[monaco]](#1.5.0_non_blocking_bulk_edit) `MonacoWorkspace.applyBulkEdit` does not open any editors anymore to avoid blocking [#8329](https://github.com/eclipse-theia/theia/pull/8329)
   - Consequently, it does not accept editor opener options, and `MonacoWorkspace.openEditors` and `MonacoWorkspace.toTextEditWithEditor` are removed.
+<a name="1_5_0_drop_node_10_support"></a>
+- [[repo]](#1_5_0_drop_node_10_support) support for `Node 10` is dropped. [#8290](https://github.com/eclipse-theia/theia/pull/8290)
+  - From now on, Node.js `12.x` is required when building.\
+   The recommended minimum version is aligned with `electron` (Node.js `12.14.1`).
 
 ## v1.4.0 - 30/07/2020
 
