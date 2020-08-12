@@ -22,7 +22,7 @@ import URI from '@theia/core/lib/common/uri';
 import { isOSX } from '@theia/core/lib/common/os';
 import { DisposableCollection, Disposable } from '@theia/core/lib/common/disposable';
 import { Message } from '@phosphor/messaging';
-import { TreeWidget, TreeNode, SelectableTreeNode, TreeProps, NodeProps, TREE_NODE_SEGMENT_CLASS, TREE_NODE_SEGMENT_GROW_CLASS } from '@theia/core/lib/browser/tree';
+import { TreeWidget, TreeNode, SelectableTreeNode, TreeModel, TreeProps, NodeProps, TREE_NODE_SEGMENT_CLASS, TREE_NODE_SEGMENT_GROW_CLASS } from '@theia/core/lib/browser/tree';
 import { ScmTreeModel } from './scm-tree-model';
 import { MenuModelRegistry, ActionMenuNode, CompositeMenuNode, MenuPath } from '@theia/core/lib/common/menu';
 import { ScmResource, ScmResourceDecorations } from './scm-provider';
@@ -57,14 +57,17 @@ export class ScmTreeWidget extends TreeWidget {
     @inject(DiffNavigatorProvider) protected readonly diffNavigatorProvider: DiffNavigatorProvider;
     @inject(IconThemeService) protected readonly iconThemeService: IconThemeService;
 
+    model: ScmTreeModel;
+
     constructor(
         @inject(TreeProps) readonly props: TreeProps,
-        @inject(ScmTreeModel) readonly model: ScmTreeModel,
+        @inject(TreeModel) readonly mymodel: TreeModel,
         @inject(ContextMenuRenderer) protected readonly contextMenuRenderer: ContextMenuRenderer,
     ) {
-        super(props, model, contextMenuRenderer);
+        super(props, mymodel, contextMenuRenderer);
         this.id = ScmTreeWidget.ID;
         this.addClass('groups-outer-container');
+        this.model = mymodel as ScmTreeModel;
     }
 
     protected onAfterAttach(msg: Message): void {

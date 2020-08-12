@@ -30,7 +30,7 @@ import { ScmTreeWidget } from './scm-tree-widget';
 import { ScmCommitWidget } from './scm-commit-widget';
 import { ScmAmendWidget } from './scm-amend-widget';
 import { ScmNoRepositoryWidget } from './scm-no-repository-widget';
-import { ScmTreeModel, ScmTreeModelProps } from './scm-tree-model';
+import { ScmTreeModelProps } from './scm-tree-model';
 import { ScmGroupsTreeModel } from './scm-groups-tree-model';
 import { ScmQuickOpenService } from './scm-quick-open-service';
 import { bindDirtyDiff } from './dirty-diff/dirty-diff-module';
@@ -146,7 +146,6 @@ export function createScmTreeContainer(parent: interfaces.Container): Container 
 export function createScmWidgetContainer(parent: interfaces.Container): Container {
     const child = createScmTreeContainer(parent);
     child.bind(ScmGroupsTreeModel).toSelf();
-    child.bind(ScmTreeModel).toService(ScmGroupsTreeModel);
     child.bind(TreeModel).toService(ScmGroupsTreeModel);
     return child;
 }

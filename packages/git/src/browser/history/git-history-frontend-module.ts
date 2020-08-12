@@ -16,7 +16,6 @@
 
 import { interfaces, Container } from 'inversify';
 import { WidgetFactory, OpenHandler, TreeModel } from '@theia/core/lib/browser';
-import { ScmTreeModel } from '@theia/scm/lib/browser/scm-tree-model';
 import { GitCommitDetailWidgetOptions } from './git-commit-detail-widget-options';
 import { GitCommitDetailWidget } from './git-commit-detail-widget';
 import { GitCommitDetailHeaderWidget } from './git-commit-detail-header-widget';
@@ -48,7 +47,6 @@ export function createGitCommitDetailWidgetContainer(parent: interfaces.Containe
     child.bind(GitCommitDetailWidget).toSelf();
     child.bind(GitCommitDetailHeaderWidget).toSelf();
     child.bind(GitDiffTreeModel).toSelf();
-    child.bind(ScmTreeModel).toService(GitDiffTreeModel);
     child.bind(TreeModel).toService(GitDiffTreeModel);
     child.bind(GitOpenerInSecondaryArea).toSelf();
     child.bind(GitResourceOpener).toService(GitOpenerInSecondaryArea);

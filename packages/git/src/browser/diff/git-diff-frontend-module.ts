@@ -21,7 +21,6 @@ import { GitDiffWidget, GIT_DIFF } from './git-diff-widget';
 import { GitDiffHeaderWidget } from './git-diff-header-widget';
 import { GitDiffTreeModel } from './git-diff-tree-model';
 import { TabBarToolbarContribution } from '@theia/core/lib/browser/shell/tab-bar-toolbar';
-import { ScmTreeModel } from '@theia/scm/lib/browser/scm-tree-model';
 import { createScmTreeContainer } from  '@theia/scm/lib/browser/scm-frontend-module';
 import { GitResourceOpener } from './git-resource-opener';
 import { GitOpenerInPrimaryArea } from './git-opener-in-primary-area';
@@ -45,11 +44,10 @@ export function bindGitDiffModule(bind: interfaces.Bind): void {
 
 export function createGitDiffWidgetContainer(parent: interfaces.Container): Container {
     const child = createScmTreeContainer(parent);
-    child.bind(TreeModel).toService(GitDiffTreeModel);
 
     child.bind(GitDiffHeaderWidget).toSelf();
     child.bind(GitDiffTreeModel).toSelf();
+    child.bind(TreeModel).toService(GitDiffTreeModel);
     child.bind(GitResourceOpener).to(GitOpenerInPrimaryArea);
-    child.bind(ScmTreeModel).toService(GitDiffTreeModel);
     return child;
 }
