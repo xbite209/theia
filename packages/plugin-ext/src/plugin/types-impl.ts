@@ -1457,7 +1457,7 @@ export class ProcessExecution {
     }
 
     public computeId(): string {
-        const hash = crypto.createHash('md5');
+        const hash = crypto.createHash('sha256');
         hash.update('process');
         if (this.executionProcess !== undefined) {
             hash.update(this.executionProcess);
@@ -1562,7 +1562,7 @@ export class ShellExecution {
     }
 
     public computeId(): string {
-        const hash = crypto.createHash('md5');
+        const hash = crypto.createHash('sha256');
         hash.update('shell');
         if (this.shellCommandLine !== undefined) {
             hash.update(this.shellCommandLine);

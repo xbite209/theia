@@ -84,7 +84,7 @@ export class PluginPathsServiceImpl implements PluginPathsService {
             // if workspace is temporary
             // then let create a storage path for each set of workspace roots
             const rootsStr = rootUris.sort().join(',');
-            return crypto.createHash('md5').update(rootsStr).digest('hex');
+            return crypto.createHash('sha256').update(rootsStr).digest('hex');
         } else {
             let stat;
             try {
@@ -95,7 +95,7 @@ export class PluginPathsServiceImpl implements PluginPathsService {
                 displayName = displayName.slice(0, displayName.lastIndexOf('.'));
             }
 
-            return crypto.createHash('md5').update(workspaceUri).digest('hex');
+            return crypto.createHash('sha256').update(workspaceUri).digest('hex');
         }
     }
 
