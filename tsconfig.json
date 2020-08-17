@@ -162,6 +162,9 @@
       ],
       "@theia/languages/*": [
         "packages/languages/*"
+      ],
+      "@theia/authentication/lib/*": [
+        "packages/authentication/src/*"
       ]
     }
   }

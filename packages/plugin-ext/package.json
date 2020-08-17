@@ -5,6 +5,7 @@
   "main": "lib/common/index.js",
   "typings": "lib/common/index.d.ts",
   "dependencies": {
+    "@theia/authentication": "^1.4.0",
     "@theia/callhierarchy": "^1.4.0",
     "@theia/core": "^1.4.0",
     "@theia/debug": "^1.4.0",

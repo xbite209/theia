@@ -548,6 +548,39 @@ export class ThemeIcon {
 
 }
 
+export class AuthenticationSession {
+    /**
+     * The identifier of the authentication session.
+     */
+    readonly id: string;
+
+    /**
+     * The access token.
+     */
+    readonly accessToken: string;
+
+    /**
+     * The account associated with the session.
+     */
+    readonly account: {
+        /**
+         * The human-readable name of the account.
+         */
+        readonly displayName: string;
+
+        /**
+         * The unique identifier of the account.
+         */
+        readonly id: string;
+    };
+
+    /**
+     * The permissions granted by the session's access token. Available scopes
+     * are defined by the authentication provider.
+     */
+    readonly scopes: string[];
+}
+
 export enum TextEditorRevealType {
     Default = 0,
     InCenter = 1,

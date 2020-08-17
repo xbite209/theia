@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@theia/api-samples": "^1.4.0",
+    "@theia/authentication": "^1.4.0",
     "@theia/callhierarchy": "^1.4.0",
     "@theia/console": "^1.4.0",
     "@theia/core": "^1.4.0",
